@@ -1,30 +1,37 @@
 # Java API Test Framework 🧪
 
-A lightweight, scalable REST API test automation framework
+A scalable REST API test automation framework
 built with Java, RestAssured, and TestNG.
 
 ## 🛠️ Tech Stack
-- Java 11+
+- Java 25+
 - RestAssured 5.3
 - TestNG 7.7
 - Maven
 
-## ⚙️ How to Run
-1. Clone: `git clone [url]`
-2. Run: `mvn test`
-
 ## 📁 Structure
 src/
 └── test/
-└── java/
-└── api/
-└── UserApiTest.java
+    └── java/
+        └── api/
+            ├── BaseTest.java       ← base config
+            ├── UserApiTest.java    ← GET tests
+            └── PostApiTest.java    ← POST/PUT/DELETE tests
 
 ## ✅ Test Coverage
-- GET /users — status 200 check
-- GET /users — response body validation
+- GET /users — status, body, nested fields, list size
+- POST /posts — create with body validation
+- PUT /posts — update validation
+- DELETE /posts — delete validation
+
+## ⚙️ How to Run
+1. Clone: `git clone [https://github.com/vijaykrishna3301/java-api-test-framework.git]`
+2. Open in IntelliJ
+3. Right click any test file → Run
+   OR
+4. Maven panel → Lifecycle → test
 
 ## 🔜 Roadmap
-- [ ] Add POST/PUT/DELETE tests
 - [ ] HTML report generation
-- [ ] CI/CD with GitHub Actions
+- [ ] GitHub Actions CI/CD
+- [ ] Auth header handling

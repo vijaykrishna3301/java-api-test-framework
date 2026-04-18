@@ -7,12 +7,7 @@ import org.testng.annotations.Test;
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.*;
 
-public class UserApiTest {
-
-    @BeforeClass
-    public void setup() {
-        RestAssured.baseURI = "https://jsonplaceholder.typicode.com";
-    }
+public class UserApiTest extends BaseTest{
 
     @Test
     public void testGetUserStatus200() {
@@ -30,5 +25,26 @@ public class UserApiTest {
                 .get("/users/1")
                 .then()
                 .body("name", equalTo("Leanne Graham"));
+    }
+    @Test
+    public void testGetUserEmailAndPhone() {
+        given()
+                .when()
+                .get("/users/1")
+                .then()
+                .statusCode(200)
+                .body("email", equalTo("Sincere@april.biz"))
+                .body("phone", notNullValue())
+                .body("address.city", equalTo("Gwenborough")); // nested field!
+    }
+
+    @Test
+    public void testGetAllUsersReturns10() {
+        given()
+                .when()
+                .get("/users")
+                .then()
+                .statusCode(200)
+                .body("size()", equalTo(10)); // validates list size
     }
 }

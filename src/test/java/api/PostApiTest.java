@@ -1,0 +1,60 @@
+package api;
+
+import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+
+import static io.restassured.RestAssured.*;
+import static org.hamcrest.Matchers.*;
+
+public class PostApiTest extends BaseTest{
+
+    @Test
+    public void testCreatePost() {
+        String requestBody = "{"
+                + "\"title\": \"My First Post\","
+                + "\"body\": \"This is a test post\","
+                + "\"userId\": 1"
+                + "}";
+
+        given()
+                .contentType(ContentType.JSON)
+                .body(requestBody)
+                .when()
+                .post("/posts")
+                .then()
+                .statusCode(201)                          // 201 = Created
+                .body("title", equalTo("My First Post"))
+                .body("userId", equalTo(1))
+                .body("id", notNullValue());              // server assigns id
+    }
+
+    @Test
+    public void testUpdatePost() {
+        String requestBody = "{"
+                + "\"title\": \"Updated Title\","
+                + "\"body\": \"Updated body\","
+                + "\"userId\": 1,"
+                + "\"id\": 1"
+                + "}";
+
+        given()
+                .contentType(ContentType.JSON)
+                .body(requestBody)
+                .when()
+                .put("/posts/1")
+                .then()
+                .statusCode(200)
+                .body("title", equalTo("Updated Title"));
+    }
+
+    @Test
+    public void testDeletePost() {
+        given()
+                .when()
+                .delete("/posts/1")
+                .then()
+                .statusCode(200); // JSONPlaceholder returns 200 for delete
+    }
+}
