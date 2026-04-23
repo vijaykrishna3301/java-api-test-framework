@@ -1,3 +1,4 @@
+![API Tests](https://github.com/vijaykrishna3301/java-api-test-framework/actions/workflows/test.yml/badge.svg)
 # Java API Test Framework 🧪
 
 A scalable REST API test automation framework
